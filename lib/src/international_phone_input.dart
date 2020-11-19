@@ -127,17 +127,19 @@ class _InternationalPhoneInputState extends State<InternationalPhoneInput> {
       PhoneService.parsePhoneNumber(phoneText, selectedItem.code)
           .then((isValid) {
         setState(() {
-          hasError = !isValid;
+          isValid = true;
         });
 
         if (widget.onPhoneNumberChange != null) {
           if (isValid) {
             PhoneService.getNormalizedPhoneNumber(phoneText, selectedItem.code)
                 .then((number) {
-              widget.onPhoneNumberChange(phoneText, number, selectedItem.code, selectedItem.dialCode);
+              widget.onPhoneNumberChange(
+                  phoneText, number, selectedItem.code, selectedItem.dialCode);
             });
           } else {
-            widget.onPhoneNumberChange('', '', selectedItem.code, selectedItem.dialCode);
+            widget.onPhoneNumberChange(
+                '', '', selectedItem.code, selectedItem.dialCode);
           }
         }
       });
@@ -200,7 +202,7 @@ class _InternationalPhoneInputState extends State<InternationalPhoneInput> {
                   return DropdownMenuItem<Country>(
                     value: value,
                     child: Container(
-                      padding: const EdgeInsets.only(bottom: 5.0),
+                      padding: const EdgeInsets.only(bottom: 5.0, right: 5.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
